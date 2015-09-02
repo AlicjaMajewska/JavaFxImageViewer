@@ -37,6 +37,9 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/*
+ * REV: skad nazwa 'menu'?
+ */
 public class MenuController {
 
 	@FXML
@@ -84,6 +87,10 @@ public class MenuController {
 	}
 
 	private void initializeScrollPane() {
+		/*
+		 * REV: nie ma potrzeby tworzenia, bo JavaFX wstrzyknie go przy ladowaniu FXML.
+		 * Ciekawe, ze to w ogole dziala :)
+		 */
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -92,12 +99,18 @@ public class MenuController {
 
 	private void addDefaultImage() {
 		try {
+			/*
+			 * REV: hardkodowanie sciezki to zly pomysl, lepiej zaladowac plik przez getClass().getResource("/res/path")
+			 */
 			File file = new File(
 					"C:/StarterKit-JavaFX/sources/javafx/src/main/resources/com/capgemini/starterkit/javafx/image/NoImage.jpg");
 			String localUrl = file.toURI().toURL().toString();
 			final Image image = new Image(localUrl);
 			imageView.setImage(image);
 		} catch (MalformedURLException e) {
+			/*
+			 * REV: uzywaj loggera zamiast System.err
+			 */
 			System.err.println(e.getMessage());
 		}
 	}
@@ -123,7 +136,13 @@ public class MenuController {
 
 	private File selectDirectory() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
+		/*
+		 * REV: moznaby pobrac tekst z bundla
+		 */
 		directoryChooser.setTitle("Open Resource File");
+		/*
+		 * REV: dialog wyboru pliku powinien byc modalny, do showDialog trzeba przekazac primaryStage
+		 */
 		File selectedDirectory = directoryChooser.showDialog(null);
 		return selectedDirectory;
 	}
@@ -131,12 +150,18 @@ public class MenuController {
 	private void loadImagesFromPath(Path imagesDirPath) {
 		List<Path> imagesPathList = new ArrayList<Path>();
 
+		/*
+		 * REV: rozszerzenie pliku moze zawierac duze litery
+		 */
 		try (Stream<Path> find = Files.find(imagesDirPath, 1, (path, attr) -> String.valueOf(path).contains(".jpg")
 				|| String.valueOf(path).contains(".png") || String.valueOf(path).contains(".jpeg"))) {
 			imagesPathList = find.collect(Collectors.toList());
 
 		} catch (IOException e) {
-
+			/*
+			 * REV: uzywaj loggera. Lepiej byloby rzucic wyjatek i pokazac komunikat o bledzie w aplikacji.
+			 * Wyjatek powinien byc lapany na koncu metody, bo nie ma sensu tworzyc listy obrazkow, gdy wylistowanie plikow sie nie powiodlo.
+			 */
 			e.printStackTrace();
 		}
 		List<ImageVO> imageVOList = new ArrayList<ImageVO>();
@@ -156,6 +181,9 @@ public class MenuController {
 	}
 
 	private String getImageName(Path imagePath) {
+		/*
+		 * REV: lepsza wersja imagePath.getFileName()
+		 */
 		String[] imagePathSplitted = imagePath.toString().split("\\\\");
 		return imagePathSplitted[imagePathSplitted.length - 1];
 	}
@@ -172,6 +200,9 @@ public class MenuController {
 				imageView.setImage(image);
 
 			} catch (MalformedURLException e) {
+				/*
+				 * REV: j.w.
+				 */
 				System.err.println(e.getMessage());
 			}
 		}

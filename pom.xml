@@ -17,16 +17,19 @@
       <version>1.2.17</version>
     </dependency>
 
+    <!-- REV: ta biblioteka nie jest uzywana w projekcie -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.1.1</version>
     </dependency>
+    <!-- REV: ta biblioteka nie jest uzywana w projekcie -->
     <dependency>
       <groupId>javax.json</groupId>
       <artifactId>javax.json-api</artifactId>
       <version>1.0-b01</version>
     </dependency>
+    <!-- REV: ta biblioteka nie jest uzywana w projekcie -->
     <dependency>
       <groupId>javazoom</groupId>
       <artifactId>jlayer</artifactId>

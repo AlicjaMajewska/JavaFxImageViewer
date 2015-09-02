@@ -11,7 +11,9 @@ public class ImageDataProviderImpl implements ImageDataProvider {
 	public Collection<ImageVO> findImages(String name) {
 		// TODO Auto-generated method stub
 
-
+		/*
+		 * REV: czy to, aby na pewno tak mialo byc?
+		 */
 
 
 		return null;
